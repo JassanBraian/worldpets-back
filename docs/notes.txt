@@ -1,0 +1,13 @@
+Estructura de folders y files en root:
+1. config: conexion a bases de datos
+2. controllers: controladores por documento
+3. docs: manuales y apuntes
+4. middlewares: servicios especiales de manipulacion de datos en peticiones
+5. models: modelos por documento
+6. routes: rutas por documento
+7. utils: servicios organizados por documento o funcionalidad
+8. env: variables de entorno 
+9. index.js: inicio de app con rutas por documento
+
+Detalles:
+1. No dar importancia a los archivos "borrar.txt"
