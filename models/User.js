@@ -1,6 +1,6 @@
-const {Schema} = require('mongoose');
+const {Schema, model} = require('mongoose');
 const validator = require('validator');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 
 const userSchema= new Schema({
  name:{
@@ -57,5 +57,5 @@ userSchema.pre('save', async function(next){
 });
 
 
-const User = model('User',userSchema);
+const User = model( 'User' , userSchema);
 module.exports = User;
