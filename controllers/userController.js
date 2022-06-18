@@ -42,5 +42,18 @@ exports.deleteUser = async ( req, res ) =>{
     console.log(error);
     res.status(500).json({message:'The server failed'});
   }
-
 };
+
+exports.getUserById = async( req, res) => {
+  try{
+    const { id } = req.params;
+    console.log(id);
+    const user= await User.findById(id);
+    if(!user) return res.status(404).json({ok: false , message: 'User not Found'}); 
+    return res.status(200).json({ok: true, user});
+
+  }catch(error){
+    console.log(error);
+    res.status(500).json({message:'The server failed'});
+  }
+}

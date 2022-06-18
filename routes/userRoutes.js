@@ -3,13 +3,16 @@ const userRouter = Router();
 const { getUsers,
         createUser,
         deleteUser,
-        updateUser} = require('../controllers/userController')
+        updateUser,
+        getUserById } = require('../controllers/userController');
+const { restrictTo } =require('../middlewares/userMiddleware')
 
 userRouter.route('/')
-        .get(getUsers)
+        .get(restrictTo('admin'),getUsers)      
         .post(createUser)
 userRouter.route('/:id')
-        .delete(deleteUser)
+        .delete(restrictTo('admin'), deleteUser)
         .put(updateUser)
+        .get(getUserById)
 
 module.exports = userRouter;

@@ -6,13 +6,13 @@ const userSchema= new Schema({
  name:{
   type: String,
   require: [true, 'you must enter a name'],
-  minlength:5,
+  minlength:4,
   maxlength:30
  },
  surname:{
   type: String,
   require:[true, 'you must enter a surname'],
-  minlength:5,
+  minlength:4,
   maxlength:30
  },
  email:{
@@ -42,11 +42,13 @@ const userSchema= new Schema({
  role:{
   type: String,
   enum:{
-    values: ['user', 'admin'],
+    values: ['client', 'admin'],
     message:"The entered value is incorrect"
   },
-  default:'user'
+  default:'client'
  }
+}, {
+  versionKey: false
 });
 
 userSchema.pre('save', async function(next){
