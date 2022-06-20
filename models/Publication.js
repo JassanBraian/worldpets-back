@@ -13,16 +13,32 @@ const publicationSchema = new Schema({
         maxlength: 500,
         required: [true, 'Please input a description']
     },
+    ubication: {
+        type: String,
+        minlength: 10,
+        maxlength: 500,
+        required: [true, 'Please input a ubication']
+    },
     category: {
         type: String,
         enum: {
             values: ['missing', 'found', 'up for adoption'],
             message: 'Wrong input value'
         },
-        default: 'missing'
+        required: [true, 'Please select a category']
     },
-    editedAt: Date
-});
+    photos: [{
+      url: {
+        type: String,
+        required: [true, 'Please input a photo']
+      },
+      position: Number
+    }],
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+}, { timestamps: true });
 
 const Publication = model('Publication', publicationSchema);
 
