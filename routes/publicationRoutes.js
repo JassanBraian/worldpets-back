@@ -16,7 +16,6 @@ router.route('/')
 router.route('/:id')
     .get(getPublicationById)
     .put(updatePublication)
-    .delete(deletePublication)
-
+    .delete(deletePublication);
 
 module.exports = router;
