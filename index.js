@@ -3,18 +3,11 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 // Routes
 const publicationRoutes = require('./routes/publicationRoutes');
-<<<<<<< HEAD
-const commentRoutes = require('./routes/commentRoutes');
-const favouriteRoutes = require('./routes/favouriteRoutes');
-
-const userRoutes = require('./routes/userRoutes');
-=======
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes')
 const commentRoutes = require('./routes/commentRoutes');
 const favouriteRoutes = require('./routes/favouriteRoutes');
 
->>>>>>> 8c78d2c0cd4fade57a95aacaacf21feb33d0cbce
 connectDB();
 dotenv.config();
 
