@@ -6,18 +6,21 @@ const userSchema= new Schema({
  name:{
   type: String,
   require: [true, 'you must enter a name'],
+  trim:true,
   minlength:4,
   maxlength:30
  },
  surname:{
   type: String,
   require:[true, 'you must enter a surname'],
+  trim:true,
   minlength:4,
   maxlength:30
  },
  email:{
   type: String,
   lowercase:true,
+  trim:true,
   unique: true,
   minlength:4,
   maxlength:30,
@@ -58,6 +61,10 @@ userSchema.pre('save', async function(next){
   next();
 });
 
+//metodos
+userSchema.methods.comparePassword = async function(candidatePassword, userPassword) {
+  return await bcrypt.compare(candidatePassword,userPassword)
+}
 
 const User = model( 'User' , userSchema);
 module.exports = User;

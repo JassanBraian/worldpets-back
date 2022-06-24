@@ -9,10 +9,10 @@ const { restrictTo } =require('../middlewares/userMiddleware')
 
 userRouter.route('/')
         .get(restrictTo('admin'),getUsers)      
-        .post(createUser)
+        .post(createUser) // este create no sera necesario a futuro xq usare un authController 
 userRouter.route('/:id')
         .delete(restrictTo('admin'), deleteUser)
-        .put(updateUser)
+        .put(updateUser)  // ver luego ¿?¿? 
         .get(getUserById)
 
 module.exports = userRouter;
