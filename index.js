@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 // Routes
 const publicationRoutes = require('./routes/publicationRoutes');
+const userRoutes = require('./routes/userRoutes');
+const authRoutes = require('./routes/authRoutes')
 const commentRoutes = require('./routes/commentRoutes');
 const favouriteRoutes = require('./routes/favouriteRoutes');
 
@@ -14,6 +16,9 @@ const app = express();
 app.use(express.json({ limit: '10kb' }));
 
 app.use('/api/v1/publication', publicationRoutes);
+
+app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 app.use('/api/v1/comment', commentRoutes);
 
