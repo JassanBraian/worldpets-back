@@ -17,10 +17,10 @@ try{
   return res.status(201).json({message: "user was saved", user: savedUser});
 }catch(error){
   console.log(error);
-  res.status(500).json({message: "the server failed..."})
+  res.status(500).json({message: error.message});
 }
 }
-
+// este metodo no es necesario 
 exports.updateUser = async ( req, res) =>{
   const { id } = req.params;
   try{
