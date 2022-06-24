@@ -1,6 +1,7 @@
 const { Router } = require('express');
-const { 
-    getPublication,
+const {
+    getPublications,
+    getPublicationById,
     createPublication,
     updatePublication,
     deletePublication
@@ -9,10 +10,11 @@ const {
 const router = Router();
 
 router.route('/')
-    .get(getPublication)
+    .get(getPublications)
     .post(createPublication);
 
 router.route('/:id')
+    .get(getPublicationById)
     .put(updatePublication)
     .delete(deletePublication);
 
