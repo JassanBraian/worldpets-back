@@ -13,6 +13,7 @@ exports.getCommentById = async (req, res) => {
     const { id } = req.params;
     try {
         const comment = await Comment.findById(id);
+        console.log(comment)
         return res.status(200).json({ ok: true, comment });
     } catch (error) {
         return res.status(500).json({ ok: false, message: 'Error B105' });
