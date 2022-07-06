@@ -8,3 +8,10 @@ exports.signToken = (id) =>{
     {expiresIn:process.env.JWT_EXPIRES_IN}
     )
 }
+exports.resetSignToken = (id) => {
+  return jwt.sign(
+    {id},
+    process.env.RESET_SECRET_TOKEN,
+    {expiresIn:process.env.RESET_JWT_EXPIRES_IN}
+  )
+}

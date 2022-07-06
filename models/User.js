@@ -49,7 +49,9 @@ const userSchema= new Schema({
     message:"The entered value is incorrect"
   },
   default:'client'
- }
+ },
+ passwordChangeAt:Date
+
 }, {
   versionKey: false
 });
@@ -61,9 +63,19 @@ userSchema.pre('save', async function(next){
   next();
 });
 
-//metodos
+//Methods
+
 userSchema.methods.comparePassword = async function(candidatePassword, userPassword) {
   return await bcrypt.compare(candidatePassword,userPassword)
+}
+
+userSchema.methods.changedPasswordAfter = async function (JWTTime){
+  if(this.passwordChangeAt){
+    const changedTimestamp = parseInt(this.passwordchangeAt.getTime()/1000);
+    return  JWTTime < changedTimestamp
+  }
+  
+  return false;
 }
 
 const User = model( 'User' , userSchema);
