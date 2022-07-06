@@ -1,6 +1,8 @@
 const User = require('../models/User');
 require('dotenv').config();
 const {signToken, resetSignToken} = require('../utils/token');
+const sendEmail = require('../utils/mail');
+const crypto = require('crypto');
 
 exports.signup = async (req,res) => {
   try{
@@ -76,3 +78,45 @@ exports.refreshToken = async (req, res) => {
     res.status(500).json({ok: false, message:"something went wrong"});
     }
   }
+
+
+exports.forgotPassword = async (req , res) => {
+  try{
+    const {email} = req.body;
+    const user = await User.findOne({email});
+    if(!user){
+      return res.status(400).json({ok:false, message:"wrong credentials"});
+    }
+    const resetToken = user.createPasswordResetToken();
+    await user.save({validateBeforeSave: false});
+    const resetUrl= `${req.protocol}://${req.get('host')}/api/v1/auth/resetPassword/${resetToken}`;
+    const message = `Forgot your password, click here to change your password ${resetUrl}`;
+    await sendEmail({message, email, subject:"Forgot your password"});
+    return res.status(200).json({ok:true, message:"we have sent an email to the address you indicated"});
+  }catch(error){
+    console.log(error);
+    return res.status(500).json({ok: false, error});
+  }
+}
+exports.resetPassword = async (req , res) => {
+  try{
+    const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+    const user = await User.findOne({
+      passwordResetToken: hashedToken,
+      passwordResetExpires: {$gt: Date.now()}
+    });
+    if(!user){
+      return res.status(400).json({ok: false, message: 'something went wrong'});
+    }
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save();
+    const token= signToken(user._id);
+    return res.status(200).json({ok:true, token});
+  }catch(error){
+    console.log(error);
+    return res.status(500).json({ok:true, error});
+  }
+}
