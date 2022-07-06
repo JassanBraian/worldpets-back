@@ -2,6 +2,7 @@ const User = require('../models/User');
 require('dotenv').config();
 const {signToken, resetSignToken} = require('../utils/token');
 
+
 exports.signup = async (req,res) => {
   try{
     const newUser = await User.create({
@@ -76,3 +77,5 @@ exports.refreshToken = async (req, res) => {
     res.status(500).json({ok: false, message:"something went wrong"});
     }
   }
+
+

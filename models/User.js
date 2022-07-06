@@ -1,6 +1,7 @@
 const {Schema, model} = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 const userSchema= new Schema({
  name:{
@@ -50,8 +51,7 @@ const userSchema= new Schema({
   },
   default:'client'
  },
- passwordChangeAt:Date
-
+ passwordChangeAt : Date,
 }, {
   versionKey: false
 });

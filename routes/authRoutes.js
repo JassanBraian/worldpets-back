@@ -3,7 +3,8 @@ const authRouter = Router();
 const {
   signup,
   login , 
-  refreshToken} = require('../controllers/authController');
+  refreshToken,
+} = require('../controllers/authController');
 
 authRouter.route('/signup')
             .post(signup)
