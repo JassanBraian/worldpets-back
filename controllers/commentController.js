@@ -2,7 +2,11 @@ const Comment = require('../models/Comment.js');
 
 exports.getComments = async (req, res) => {
     try {
-        const comments = await Comment.find({});
+        let comments = [];
+        req.body.publiId ?
+            comments = await Comment.find({ publication: req.body.publiId })
+            :
+            comments = await Comment.find({});
         return res.status(200).json({ ok: true, comments });
     } catch (error) {
         return res.status(500).json({ ok: false, message: 'Error B101' });
@@ -13,19 +17,10 @@ exports.getCommentById = async (req, res) => {
     const { id } = req.params;
     try {
         const comment = await Comment.findById(id);
+        console.log(comment)
         return res.status(200).json({ ok: true, comment });
     } catch (error) {
         return res.status(500).json({ ok: false, message: 'Error B105' });
-    }
-}
-
-exports.getCommentsByPubliId = async (req, res) => {
-    const { publiId } = req.params;
-    try {
-        const comments = await Comment.find({ publication: publiId });
-        return res.status(200).json({ ok: true, comments });
-    } catch (error) {
-        return res.status(500).json({ ok: false, message: 'Error B106' });
     }
 }
 

@@ -13,10 +13,12 @@ const commentSchema = new Schema({
   },
   publication:{
     type: Schema.Types.ObjectId,
+    required: true,
     ref: 'Publication'
   },
   usersend:{
     type: Schema.Types.ObjectId,
+    required: true,
     ref: 'User'
   }
 }, { timestamps: true });
