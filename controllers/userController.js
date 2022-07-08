@@ -69,3 +69,18 @@ exports.getUserById = async( req, res) => {
     res.status(500).json({message:'The server failed'});
   }
 }
+
+exports.getUserByToken= async(req, res)=>{
+  try{
+    const {name,surname, email}= req.user;
+    return res.status(200).json({user:{
+      name,
+      surname,
+      email
+    }
+  });
+  }catch(error){
+    console.log(error);
+    return res.status(500).json({message:'The server failed'});
+  }
+}
