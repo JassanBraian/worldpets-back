@@ -3,8 +3,8 @@ const Comment = require('../models/Comment.js');
 exports.getComments = async (req, res) => {
     try {
         let comments = [];
-        req.body.publiId ?
-            comments = await Comment.find({ publication: req.body.publiId })
+        req.query.publiId ?
+            comments = await Comment.find({ publication: req.query.publiId })
             :
             comments = await Comment.find({});
         return res.status(200).json({ ok: true, comments });
