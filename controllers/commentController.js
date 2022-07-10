@@ -4,7 +4,7 @@ exports.getComments = async (req, res) => {
     try {
         let comments = [];
         req.query.publiId ?
-            comments = await Comment.find({ publication: req.query.publiId })
+            comments = await Comment.find({ publiid: req.query.publiId })
             :
             comments = await Comment.find({});
         return res.status(200).json({ ok: true, comments });

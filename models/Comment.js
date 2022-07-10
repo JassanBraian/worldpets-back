@@ -2,24 +2,33 @@ const { Schema, model } = require('mongoose');
 
 const commentSchema = new Schema({
   description: {
-      type: String,
-      minlength: 10,
-      maxlength: 500,
-      required: [true, 'Please input a description']
+    type: String,
+    minlength: 10,
+    maxlength: 500,
+    required: [true, 'Please input a description']
   },
   isprivate: {
     type: Boolean,
     default: false,
   },
-  publication:{
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: 'Publication'
+  publication: {
+    title: { type: String, required: true },
+    publiid: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Publication'
+    }
   },
-  usersend:{
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: 'User'
+  usersend: {
+    name: {
+      type: String,
+      required: true
+    },
+    userid: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    }
   }
 }, { timestamps: true });
 
