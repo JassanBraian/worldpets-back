@@ -21,7 +21,9 @@ exports.getPublicationById = async (req, res) => {
 
 exports.createPublication = async (req, res) => {
     try {
-        const publication = new Publication({ ...req.body });
+        const photos = [{url: "62b004ffe80bfe707399cafb", position: 1}];
+        const user = "62ad267b4e28e037c6f7b3b3";
+        const publication = new Publication({ ...req.body, photos, user });
         const savedPublication = await publication.save();
         return res
             .status(201)
@@ -31,6 +33,7 @@ exports.createPublication = async (req, res) => {
                 publication: savedPublication,
             });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ ok: false, message: "Error B102" });
     }
 };
