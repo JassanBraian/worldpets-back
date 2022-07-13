@@ -22,20 +22,21 @@ try{
 }
 // este metodo no es necesario 
 exports.updateUser = async ( req, res) =>{
-  const { id } = req.params;
+  // const { id } = req.params;
+  const id = req.user._id;
   let updateUser
- 
   try{
+
     const user = await User.findById(id);
-    if(!user) return res.status(404).json({ok:false, message: " User not Found"});
+    if(!user) return res.status(404).json({ok:false, message: "User not Found"});
     
-    const newBody={
+    const newBody = {
             name:req.body.name, 
             surname:req.body.surname, 
             email:req.body.email} 
     if(req.user.role==="client" || req.user.role===user.role){
-      console.log("Usted no puede manipular el Role");
-       updateUser = await User.findByIdAndUpdate(id,newBody, {new:true});   
+       console.log("Usted no puede manipular el Role");
+       updateUser = await User.findByIdAndUpdate(id,newBody, {new:true});
     }else{
       updateUser = await User.findByIdAndUpdate(id, req.body, {new:true});
     }
