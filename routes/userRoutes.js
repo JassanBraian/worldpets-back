@@ -10,13 +10,13 @@ const {
 const { restrictTo, protect } =require('../middlewares/userMiddleware')
 
 userRouter.route('/')
-        .get(restrictTo('admin'),getUsers)      
-        .post(createUser) // este create no sera necesario a futuro xq usare un authController 
+        .get(protect ,restrictTo('admin'),getUsers)      
+        .post(protect, createUser) // este create no sera necesario a futuro xq usare un authController 
         .put(protect,updateUser)  // ver luego ¿?¿? 
 
 userRouter.route('/userbytoken')
-        .get(protect,getUserByToken)
+        .get(protect, getUserByToken)
 userRouter.route('/:id')
-        .delete(restrictTo('admin'), deleteUser)
+        .delete(protect,restrictTo('admin'), deleteUser)
         .get(getUserById)
 module.exports = userRouter;
